@@ -11,6 +11,7 @@ def start():
             lab_list[0].after(1, lab_list[0].destroy())
             lab_list.pop(0)
 
+
     for i in range(len(alist)):
         a = Label(mainframe, text=str(alist[i]))
         a.grid(column=1, row=3 + i, sticky=W)
@@ -20,15 +21,18 @@ def start():
     root.after(1, step(alist))
 
 
-def step(alist, i=0):  # ['2', '-1', '3']
+def step(alist, i=0):
     if i < len(alist):
+
+        for k in range(len(lab_list)):
+            lab_list[k].configure(text=str(alist[k]))
 
         for j in range(len(alist) - i - 1):
             if alist[j] > alist[j + 1]:
                 alist[j], alist[j + 1] = alist[j + 1], alist[j]
 
-        for k in range(len(lab_list)):
-            lab_list[k].configure(text=str(alist[k]))
+        lab_list[len(alist) - i - 1].configure(background="#99ff99")
+
         i += 1
 
         root.update_idletasks()
@@ -38,8 +42,6 @@ def step(alist, i=0):  # ['2', '-1', '3']
     if i == len(alist):
         button.state(["!disabled"])
         enter_entry.state(["!disabled"])
-        for k in range(len(alist)):
-            lab_list[k].configure(background="#99ff99")
         return
 
 
